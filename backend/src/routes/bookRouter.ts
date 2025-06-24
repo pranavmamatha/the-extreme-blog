@@ -3,6 +3,7 @@ import { PrismaClient } from "../generated/prisma/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { verify } from "hono/jwt";
 import { createBlog, updateBlog} from "@thisispranav/the-extreme-blog-common";
+import { title } from "process";
 
 export const bookRouter = new Hono<{
   Bindings: {
@@ -27,19 +28,19 @@ bookRouter.use("/blog/*", async (c, next) => {
   const jwt = c.req.header("Authorization");
   if (!jwt) {
     c.status(401);
-    return c.json({ error: "Unauthorized" });
+    return c.json({ message: "You are not logged in." });
   }
   const token = jwt.split(" ")[1];
   const payload = await verify(token, c.env.JWT_SECRET);
   if (!payload) {
     c.status(401);
-    return c.json({ error: "Unauthorized" });
+    return c.json({ message: "Unauthorized" });
   }
   c.set("userId", payload.id as string);
   await next();
 });
 
-bookRouter.post("/blog/post", async (c) => {
+bookRouter.post("//post", async (c) => {
   const userId = c.get("userId");
   const prisma = c.get("prisma");
   const body = await c.req.json();
@@ -128,7 +129,19 @@ bookRouter.get('/blog/oneBlog/:id', async(C)=>{
 bookRouter.get('/blog/bulk', async(C)=>{
   const prisma = C.get("prisma");
 
-  const posts = await prisma.post.findMany({})
+  const posts = await prisma.post.findMany({
+    select:{
+      title: true,
+      content: true,
+      id: true,
+      authorId:true,
+      author: {
+        select: {
+          name: true
+        }
+      }
+    }
+  })
 
   return C.json(posts)
 })
