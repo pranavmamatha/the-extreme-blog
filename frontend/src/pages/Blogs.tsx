@@ -15,12 +15,9 @@ export function Blogs() {
       <Appbar />
       <div className="flex justify-center">
         <div className="max-w-sm lg:max-w-2xl">
-          <BlogCard
-            authorName={"Pranav R"}
-            title="How an Ugly Single-Page Website Makes $5,000 a   Month with Affiliate Marketing"
-            content="Making money online is the dream for many people, but when you start, you realize there is a lot to do. Such as creating the logo, building a landing page, writing the USP (unique selling proposition), and more."
-            publishedDate="2nd Feb 2024"
-          />{" "}
+          {blogs.map(blog=>{
+            return <BlogCard authorName={blog.author.name} title={blog.title} content={blog.content} id={blog.id}/>
+          })}
         </div>
       </div>
     </div>
