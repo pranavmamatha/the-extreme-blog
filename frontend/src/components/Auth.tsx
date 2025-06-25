@@ -5,6 +5,7 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 
 export function Auth({ type }: { type: "signup" | "signin" }) {
+  const  [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [postInput, setPostInput] = useState<SignupInput>({
     name: "",
@@ -13,12 +14,14 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
   });
   async function sendRequest() {
     try {
+      setLoading(true);
       const response = await axios.post(
         `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
         postInput
       );
       let jwt = response.data;
       localStorage.setItem("token", jwt.token);
+      setLoading(false);
       navigate("/blogs");
     } catch (e) {
       //alert the user here that the request failed
@@ -89,7 +92,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
               type="button"
               className="w-full text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 mt-8 cursor-pointer"
             >
-              {type === "signin" ? "Sing in" : "Sign up"}
+              {loading? (type === "signin" ? "Singing in..." : "Signing up....") :(type === "signin" ? "Sing in" : "Sign up")}
             </button>
           </div>
         </div>

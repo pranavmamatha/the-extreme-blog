@@ -2,8 +2,20 @@ import { BlogCard } from "../components/BlogCard";
 import { Appbar } from "../components/Appbar";
 import { useBlogs } from "../hooks";
 import { BlogSkeleton } from "../components/BlogSkeleton";
+import { checklogin } from "../components/CheckLogin";
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+
 
 export function Blogs() {
+  const navigate = useNavigate()
+  if (!checklogin()){
+    console.log(checklogin())
+    useEffect(()=>{
+      navigate("/signup")
+    }, [])
+  }
+
   const { loading, blogs } = useBlogs();
 
   if (loading) {

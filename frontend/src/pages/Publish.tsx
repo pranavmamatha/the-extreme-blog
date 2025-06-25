@@ -3,13 +3,23 @@ import axios from "axios";
 import { BACKEND_URL } from "../config";
 import { Appbar } from "../components/Appbar";
 import { useNavigate } from "react-router-dom";
+import { checklogin } from "../components/CheckLogin";
+import { useEffect } from "react";
+
 
 export function Publish() {
+  const navigate = useNavigate()
+  if (!checklogin()){
+    console.log(checklogin())
+    useEffect(()=>{
+      navigate("/signin")
+    }, [])
+  }
+
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
-  const navigate = useNavigate();
 
   async function onClick() {
     try {
