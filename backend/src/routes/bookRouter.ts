@@ -3,7 +3,6 @@ import { PrismaClient } from "../generated/prisma/edge";
 import { withAccelerate } from "@prisma/extension-accelerate";
 import { verify } from "hono/jwt";
 import { createBlog, updateBlog} from "@thisispranav/the-extreme-blog-common";
-import { title } from "process";
 
 export const bookRouter = new Hono<{
   Bindings: {
@@ -31,16 +30,21 @@ bookRouter.use("/blog/*", async (c, next) => {
     return c.json({ message: "You are not logged in." });
   }
   const token = jwt.split(" ")[1];
-  const payload = await verify(token, c.env.JWT_SECRET);
-  if (!payload) {
+  try{
+    const payload = await verify(token, c.env.JWT_SECRET);
+    if (!payload) {
+      c.status(401);
+      return c.json({ message: "Unauthorized" });
+    }
+    c.set("userId", payload.id as string);
+    await next();
+  } catch(e){
     c.status(401);
-    return c.json({ message: "Unauthorized" });
+    return c.json({ message: "You are not logged in." });
   }
-  c.set("userId", payload.id as string);
-  await next();
 });
 
-bookRouter.post("//post", async (c) => {
+bookRouter.post("/blog/post", async (c) => {
   const userId = c.get("userId");
   const prisma = c.get("prisma");
   const body = await c.req.json();
@@ -56,7 +60,7 @@ bookRouter.post("//post", async (c) => {
     const post = await prisma.post.create({
     data:{
       title: body.title,
-      content: body.title,
+      content: body.content,
       authorId: userId
     }
     })
@@ -114,6 +118,16 @@ bookRouter.get('/blog/oneBlog/:id', async(C)=>{
   const post = await prisma.post.findUnique({
     where:{
       id
+    },     select:{
+      title: true,
+      content: true,
+      id: true,
+      authorId:true,
+      author: {
+        select: {
+          name: true
+        }
+      }
     }
   })
 
