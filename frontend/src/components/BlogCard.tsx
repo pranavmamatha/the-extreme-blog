@@ -20,7 +20,7 @@ export function BlogCard({
         <div className="flex justify-center flex-col">
           <Avatar name={authorName}  />
         </div>
-        <div className="font-light pl-1 flex justify-center flex-col">
+        <div className="font-light pl-1 flex justify-center flex-col ml-2">
           {authorName}
         </div>
         <div className="font-thin text-[10px] pl-4 flex justify-center flex-col text-slate-500">
@@ -41,7 +41,7 @@ export function BlogCard({
 
 export function Avatar({ name }: { name: string }) {
   return (
-    <div className={"relative inline-flex items-center justify-center p-2 overflow-hidden rounded-full bg-gray-600"}>
+    <div className={"relative inline-flex items-center justify-center w-10 h-10 overflow-hidden rounded-full bg-gray-600"}>
       <span className="font-medium text-gray-300">{name[0]}</span>
     </div>
   );
