@@ -3,7 +3,7 @@ import { useBlog } from "../hooks";
 import { FullBlog } from "../components/FullBlog";
 import { Appbar } from "../components/Appbar";
 import {BlogSkeleton} from "../components/BlogSkeleton"
-import { checklogin } from "../components/CheckLogin";
+import { checklogin } from "../components/checkLogin";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 

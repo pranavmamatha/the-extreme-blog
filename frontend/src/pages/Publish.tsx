@@ -1,9 +1,9 @@
 import { useState } from "react";
 import axios from "axios";
-import { BACKEND_URL } from "../config";
+const backend_url = import.meta.env.VITE_BACKEND_URL
 import { Appbar } from "../components/Appbar";
 import { useNavigate } from "react-router-dom";
-import { checklogin } from "../components/CheckLogin";
+import { checklogin } from "../components/checkLogin";
 import { useEffect } from "react";
 
 
@@ -26,7 +26,7 @@ export function Publish() {
       setLoading(true);
       setError(false);
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/book/blog/post`,
+        `${backend_url}/api/v1/book/blog/post`,
         { title, content },
         {
           headers: {

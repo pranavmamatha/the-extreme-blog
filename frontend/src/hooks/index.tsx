@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { BACKEND_URL } from "../config";
+const backend_url = import.meta.env.VITE_BACKEND_URL
 
 interface Blog {
   title: string;
@@ -18,7 +18,7 @@ export function useBlogs() {
 
   useEffect(() => {
     axios
-      .get(`${BACKEND_URL}/api/v1/book/blog/bulk`, {
+      .get(`${backend_url}/api/v1/book/blog/bulk`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -47,7 +47,7 @@ export function useBlog({ id }: { id: string }) {
 
   useEffect(() => {
     axios
-      .get(`${BACKEND_URL}/api/v1/book/blog/oneBlog/${id}`, {
+      .get(`${backend_url}/api/v1/book/blog/oneBlog/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

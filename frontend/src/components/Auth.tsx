@@ -2,9 +2,10 @@ import { useState, type ChangeEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import type { SignupInput } from "@thisispranav/the-extreme-blog-common";
 import axios from "axios";
-import { BACKEND_URL } from "../config";
+const backend_url = import.meta.env.VITE_BACKEND_URL
+{console.log(backend_url)
 
-export function Auth({ type }: { type: "signup" | "signin" }) {
+}export function Auth({ type }: { type: "signup" | "signin" }) {
   const  [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [postInput, setPostInput] = useState<SignupInput>({
@@ -13,10 +14,11 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
     password: "",
   });
   async function sendRequest() {
+    console.log( `${backend_url}/api/v1/user/${type === "signup" ? "signup" : "signin"}`)
     try {
       setLoading(true);
       const response = await axios.post(
-        `${BACKEND_URL}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
+        `${backend_url}/api/v1/user/${type === "signup" ? "signup" : "signin"}`,
         postInput
       );
       let jwt = response.data;

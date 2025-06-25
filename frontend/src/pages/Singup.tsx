@@ -1,6 +1,6 @@
 import { Quote } from "../components/Quote";
 import { Auth } from "../components/Auth";
-import { checklogin } from "../components/CheckLogin";
+import { checklogin } from "../components/checkLogin";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
