@@ -21,6 +21,7 @@ export function Auth({ type }: { type: "signup" | "signin" }) {
       );
       let jwt = response.data;
       localStorage.setItem("token", jwt.token);
+      localStorage.setItem("name", jwt.name);
       setLoading(false);
       navigate("/blogs");
     } catch (e) {

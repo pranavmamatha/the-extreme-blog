@@ -47,6 +47,7 @@ userRouter.post("/signup", async (c) => {
     return c.json({
       message: "User created successfully",
       token: token,
+      name: user.name
     });
   } catch (e) {
     c.status(403);
@@ -81,7 +82,7 @@ userRouter.post("/signin", async (c) => {
       return c.json({ message: "Wrong password" });
     }
     const token = await sign({ id: user.id }, c.env.JWT_SECRET);
-    return c.json({ message: "signin successfull", token: token });
+    return c.json({ message: "signin successfull", token: token, name: user.name });
   } catch (e) {
     return c.json({ error: "Something went wrong" });
   }

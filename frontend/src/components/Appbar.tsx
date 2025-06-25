@@ -1,6 +1,8 @@
+import { any } from "zod";
 import { Avatar } from "./BlogCard";
 import { Link, useNavigate } from "react-router-dom";
 export function Appbar() {
+  const name = localStorage.getItem("name") ;
   return (
     <div className="border-b border-slate-300 flex justify-between px-10 py-3 mb-10">
       <div className="flex justify-center flex-col">
@@ -22,7 +24,7 @@ export function Appbar() {
             </button>
           </Link>
 
-          <Avatar name={"P"} />
+          <Avatar name={name!=null?name:""} />
 
         </div>
       </div>
@@ -40,7 +42,7 @@ function LogoutButton(){
       localStorage.removeItem("token");
       navigate("/signin")
     }}
-        className="p-16-semibold p-4 font-semibold rounded-full bg-cover hover:bg-purple-100 hover:shadow-inner focus:bg-gradient-to-r from-purple-400 to-purple-600 focus:text-white text-gray-700 transition-all ease-linear"
+        className="p-16-semibold p-4 font-semibold rounded-full bg-cover hover:bg-purple-100 hover:shadow-inner focus:bg-gradient-to-r from-purple-400 to-purple-600 focus:text-white text-gray-700 transition-all ease-linear cursor-pointer"
       >
         <svg
           xmlns="http://www.w3.org/2000/svg"
