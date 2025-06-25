@@ -3,9 +3,8 @@ import { Link, useNavigate } from "react-router-dom";
 import type { SignupInput } from "@thisispranav/the-extreme-blog-common";
 import axios from "axios";
 const backend_url = import.meta.env.VITE_BACKEND_URL
-{console.log(backend_url)
 
-}export function Auth({ type }: { type: "signup" | "signin" }) {
+export function Auth({ type }: { type: "signup" | "signin" }) {
   const  [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [postInput, setPostInput] = useState<SignupInput>({
@@ -14,7 +13,6 @@ const backend_url = import.meta.env.VITE_BACKEND_URL
     password: "",
   });
   async function sendRequest() {
-    console.log( `${backend_url}/api/v1/user/${type === "signup" ? "signup" : "signin"}`)
     try {
       setLoading(true);
       const response = await axios.post(

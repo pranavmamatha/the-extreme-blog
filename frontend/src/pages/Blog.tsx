@@ -11,7 +11,6 @@ import { useEffect } from "react";
 export function Blog() {
     const navigate = useNavigate()
   if (!checklogin()){
-    console.log(checklogin())
     useEffect(()=>{
       navigate("/signup")
     }, [])

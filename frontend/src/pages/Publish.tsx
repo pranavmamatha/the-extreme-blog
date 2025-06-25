@@ -10,7 +10,6 @@ import { useEffect } from "react";
 export function Publish() {
   const navigate = useNavigate()
   if (!checklogin()){
-    console.log(checklogin())
     useEffect(()=>{
       navigate("/signin")
     }, [])

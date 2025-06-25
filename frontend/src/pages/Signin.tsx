@@ -8,7 +8,6 @@ import { useNavigate } from "react-router-dom";
 export function Signin() {
   const navigate = useNavigate()
   if (checklogin()){
-    console.log(checklogin())
     useEffect(()=>{
       navigate("/blogs")
     }, [])
