@@ -1,6 +1,6 @@
 # eXtreme
 <br/>
-(https://extremeblogs.vercel.app)
+(extremeblogs.vercel.app)
 <br/>
 <br/>
 <br/>
